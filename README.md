@@ -45,7 +45,9 @@ Locate your keyboard backlight device.
 
 Update this line in the script:
 
-```BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"```
+```bash
+BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
+```
 
 Step 3 — Test Backlight Control Manually
 
