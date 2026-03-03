@@ -24,7 +24,6 @@ It monitors keyboard input using `libinput debug-events`.
 
 ```
 git clone https://github.com/tangosox/systemd-keyboard-backlight-idle-control kbd-backlight
-cd kbd-backlight/
 ```
 
 ## Step 2 — Find Your Keyboard Event Device
