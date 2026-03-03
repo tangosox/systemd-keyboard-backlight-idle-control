@@ -73,6 +73,11 @@ Place the service file in:
 /etc/systemd/system/
 ```
 
+Place `kbd-backlight` sleep restart hook in
+```
+/usr/lib/systemd/system-sleep/
+```
+
 Reload systemd:
 
 ```
