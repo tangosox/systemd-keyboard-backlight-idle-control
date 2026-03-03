@@ -29,7 +29,7 @@ libinput debug-events
 ```
 
 Then press a key on your keyboard.
-Note the event device (for example /dev/input/event20).
+Note the event device (for example `/dev/input/event20`).
 
 Update this line in the script:
 
@@ -101,7 +101,8 @@ sudo systemctl start your-service-name.service
 ```
 
 This must be installed as a system-level service, not a user service.
-Configuration
+
+## Configuration
 
 Inside the script:
 ```
