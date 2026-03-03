@@ -20,12 +20,11 @@ It monitors keyboard input using `libinput debug-events`.
 
 ---
 
-## Step 1 Download files and edit
-
-Place `kbd-backlight-idle.sh` in
+## Step 1 Download repository
 
 ```
-~/.local/bin/
+git clone https://github.com/tangosox/systemd-keyboard-backlight-idle-control kbd-backlight
+cd kbd-backlight/
 ```
 
 ## Step 2 — Find Your Keyboard Event Device
@@ -45,7 +44,7 @@ Update this line in the script:
 KEYBOARD="/dev/input/event20"
 ```
 
-## Step 1 — Find Your Backlight Path
+## Step 3 — Find Your Backlight Path and Test
 
 Check available LED devices:
 
@@ -53,15 +52,11 @@ Check available LED devices:
 ls /sys/class/leds
 ```
 
-Locate your keyboard backlight device.
-
-Update this line in the script:
+default path:
 
 ```
-BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
+/sys/class/leds/platform::kbd_backlight/brightness
 ```
-
-## Step 3 — Test Backlight Control Manually
 
 Turn backlight ON:
 
@@ -76,8 +71,17 @@ echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
 ```
 
 Note: sudo echo 1 > file will NOT work because shell redirection happens before sudo.
+If this works edit the path of 
 
-## Step 4 — Move Files To Their Respective Locations
+## Step 4 Update script
+
+Update this line in the script with path from previous step:
+
+```
+BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
+```
+
+## Step 5 — Move Files To Their Respective Locations
 
 place `kbd-backlight-idle.sh` in default location
 
