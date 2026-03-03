@@ -45,19 +45,21 @@ Locate your keyboard backlight device.
 
 Update this line in the script:
 
-```bash
-BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
-```
+```BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"```
 
 Step 3 — Test Backlight Control Manually
 
 Turn backlight ON:
 
-```echo 1 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness```
+```
+echo 1 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
+```
 
 Turn backlight OFF:
 
-```echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness```
+```
+echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
+```
 
 Note: sudo echo 1 > file will NOT work because shell redirection happens before sudo.
 
@@ -67,19 +69,27 @@ Update the device path and script location in the service file.
 
 Place the service file in:
 
-```/etc/systemd/system/```
+```
+/etc/systemd/system/
+```
 
 Reload systemd:
 
-```sudo systemctl daemon-reload```
+```
+sudo systemctl daemon-reload
+```
 
 Enable the service:
 
-```sudo systemctl enable your-service-name.service```
+```
+sudo systemctl enable your-service-name.service
+```
 
 Start the service:
 
-```sudo systemctl start your-service-name.service```
+```
+sudo systemctl start your-service-name.service
+```
 
 This must be installed as a system-level service, not a user service.
 Configuration
