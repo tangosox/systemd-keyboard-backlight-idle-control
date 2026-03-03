@@ -33,13 +33,17 @@ Note the event device (for example /dev/input/event20).
 
 Update this line in the script:
 
+```
 KEYBOARD="/dev/input/event20"
+```
 
-Step 2 — Find Your Backlight Path
+## Step 2 — Find Your Backlight Path
 
 Check available LED devices:
 
+```
 ls /sys/class/leds
+```
 
 Locate your keyboard backlight device.
 
@@ -47,7 +51,7 @@ Update this line in the script:
 
 ```BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"```
 
-Step 3 — Test Backlight Control Manually
+## Step 3 — Test Backlight Control Manually
 
 Turn backlight ON:
 
@@ -63,7 +67,7 @@ echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
 
 Note: sudo echo 1 > file will NOT work because shell redirection happens before sudo.
 
-Step 4 — Install the Service
+## Step 4 — Install the Service
 
 Update the device path and script location in the service file.
 
