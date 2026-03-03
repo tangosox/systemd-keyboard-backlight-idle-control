@@ -1,0 +1,11 @@
+[Unit]
+Description=Keyboard Backlight Idle Timeout
+After=multi-user.target
+
+[Service]
+ExecStart=/home/paul/.local/bin/kbd-backlight-idle.sh
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
