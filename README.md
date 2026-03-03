@@ -51,7 +51,7 @@ Check available LED devices:
 ls /sys/class/leds
 ```
 
-default path:
+The default path is usually:
 
 ```
 /sys/class/leds/platform::kbd_backlight/brightness
@@ -70,11 +70,10 @@ echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
 ```
 
 Note: sudo echo 1 > file will NOT work because shell redirection happens before sudo.
-If this works edit the path of 
 
 ## Step 4 Update script
 
-Update this line in the script with path from previous step:
+Update this line in the script with tested path from previous step:
 
 ```
 BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
@@ -82,7 +81,7 @@ BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 
 ## Step 5 — Move Files To Their Respective Locations
 
-place `kbd-backlight-idle.sh` in default location
+Place `kbd-backlight-idle.sh` in the default location
 
 ```
 ~/.local/bin/
@@ -111,13 +110,13 @@ sudo systemctl daemon-reload
 Enable the service:
 
 ```
-sudo systemctl enable your-service-name.service
+sudo systemctl enable kbd-backlight-idle.service
 ```
 
 Start the service:
 
 ```
-sudo systemctl start your-service-name.service
+sudo systemctl start kbd-backlight-idle.service
 ```
 
 This must be installed as a system-level service, not a user service.
