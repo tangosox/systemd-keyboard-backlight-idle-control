@@ -3,8 +3,8 @@ set -euo pipefail
 
 BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 KEYBOARD="/dev/input/event20"
-TIMEOUT=5                 # set to 30 when you're happy
-ON_LEVEL=2                # 0/1/2 on your machine
+TIMEOUT=5                 # seconds
+ON_LEVEL=2                # 0/1/2 on my machine
 POLL=.2
 
 STATE="on"
