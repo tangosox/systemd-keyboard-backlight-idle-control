@@ -37,7 +37,7 @@ libinput list-devices
 Then press a key on your keyboard.
 Note the keyboard name (for example in my case using input remapper `input-remapper AT Translated Set 2 keyboard forwarded`).
 
-Update this line in the script:
+Update only the name as it matches above example with your device name in the script:
 
 ```
 KEYBOARD="$(libinput list-devices | awk '
