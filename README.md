@@ -26,21 +26,24 @@ It monitors keyboard input using `libinput debug-events`.
 git clone https://github.com/tangosox/systemd-keyboard-backlight-idle-control kbd-backlight
 ```
 
-## Step 2 — Find Your Keyboard Event Device
+## Step 2 — Find Your Keyboard
 
 Run:
 
 ```bash
-libinput debug-events
+libinput list-devices
 ```
 
 Then press a key on your keyboard.
-Note the event device (for example `/dev/input/event20`).
+Note the keyboard name (for example in my case using input remapper `input-remapper AT Translated Set 2 keyboard forwarded`).
 
 Update this line in the script:
 
 ```
-KEYBOARD="/dev/input/event20"
+KEYBOARD="$(libinput list-devices | awk '
+  /input-remapper AT Translated Set 2 keyboard forwarded/ {found=1}
+  found && /Kernel:/ {print $2; exit}
+')"
 ```
 
 ## Step 3 — Find Your Backlight Path and Test
