@@ -87,7 +87,7 @@ BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 Place `kbd-backlight-idle.sh` in the default location
 
 ```
-~/.local/bin/
+/usr/local/bin/
 ```
 
 Or update the device path and script location in the service file for a
