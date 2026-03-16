@@ -3,7 +3,7 @@ Description=Keyboard Backlight Idle Timeout
 After=multi-user.target
 
 [Service]
-ExecStart=/home/paul/.local/bin/kbd-backlight-idle.sh
+ExecStart=/usr/local/bin/kbd-backlight-idle.sh
 Restart=always
 User=root
 
