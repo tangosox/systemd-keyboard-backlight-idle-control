@@ -1,4 +1,10 @@
 #!/bin/bash
-if [ "$1" = "post" ]; then
-    systemctl restart kbd-backlight-idle.service
-fi
+case $1/$2 in
+  post/*)
+    # The 'post' argument covers resume from suspend AND hibernate
+    /usr/bin/logger -t "kbd-fix" "Resume detected, forcing service restart"
+    /usr/bin/systemctl stop kbd-backlight-idle.service
+    /usr/bin/sleep 5
+    /usr/bin/systemctl start kbd-backlight-idle.service
+    ;;
+esac
