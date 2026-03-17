@@ -15,7 +15,7 @@ Use at your own risk. I used AI to help code this and although I've been using i
 
 Explanation from Gemini: "The 100% CPU bug happened because a standard pipe (|) crashes when the hardware vanishes during hibernation, leaving the script "spinning" in a broken loop. By switching to a Named Pipe (FIFO), we decoupled the script from the hardware; the script now waits safely at a persistent "file" in /tmp until the keyboard is re-detected, preventing the infinite loop."
 
-I'm studying computer science but I'm pretty early in the education process so apologies for being a vibe coder. Still, I hope you find it useful, as it is now working perfectly for me and solved an issue with no dynamic keyboard backlight available in linux for my hardware.
+I'm studying computer science but I'm pretty early in the education process so apologies for being a bit of a vibe coder. Still, I hope you find it useful, as it is now working perfectly for me and solved an issue with no dynamic keyboard backlight available in linux for my hardware.
 
 ---
 
