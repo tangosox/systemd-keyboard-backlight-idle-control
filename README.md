@@ -86,8 +86,9 @@ Note: sudo echo 1 > file will NOT work because shell redirection happens before 
 Update this line in the script with tested path from previous step:
 
 ```
-BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
+KEYBOARD=$($LIBINPUT list-devices | awk '/input-remapper AT Translated Set 2 keyboard forwarded/ {found=1} found && /Kernel:/ {print $2; exit}')
 ```
+only edit the part after `awk` and inside `'/` and ending with `/` before `{found=1}`.
 
 ## Step 5 - Update Service file
 
