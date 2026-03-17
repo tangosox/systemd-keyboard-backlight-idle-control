@@ -10,6 +10,9 @@ even though the hardware supported it (and it worked in Windows).
 This script turns off the keyboard backlight after a configurable idle period.
 It monitors keyboard input using `libinput debug-events`.
 
+Updated 3/16/26 - on resume from sleep or hibernate sometimes it was failing to re-attach to the pipe and entering an
+infinite loop using 100% cpu! New version should stop correctly and the service was updated to restart it correctly.
+
 ---
 
 ## Requirements
@@ -82,7 +85,14 @@ Update this line in the script with tested path from previous step:
 BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 ```
 
-## Step 5 — Move Files To Their Respective Locations
+## Step 5 - Update Service file
+
+You probably do not need `After=input-remapper.service` unless you are also running input-remapper.
+Make sure you look over this file, I can't be sure what you need here.  I made it more robust because 
+it was failing to start after hibernate/sleep resume.
+
+
+## Step 6 - Move Files To Their Respective Locations
 
 Place `kbd-backlight-idle.sh` in the default location
 
