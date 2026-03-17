@@ -81,23 +81,20 @@ echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
 
 Note: sudo echo 1 > file will NOT work because shell redirection happens before sudo.
 
-## Step 4 - Update script
-
-Update this line in the script with tested path from previous step:
+Update this line in the script with the tested path you just found:
 
 ```
-KEYBOARD=$($LIBINPUT list-devices | awk '/input-remapper AT Translated Set 2 keyboard forwarded/ {found=1} found && /Kernel:/ {print $2; exit}')
+BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 ```
-only edit the part after `awk` and inside `'/` and ending with `/` before `{found=1}`.
 
-## Step 5 - Update Service file
+## Step 4 - Update Service file
 
 You probably do not need `After=input-remapper.service` unless you are also running input-remapper.
 Make sure you look over this file, I can't be sure what you need here.  I made it more robust because 
 it was failing to start after hibernate/sleep resume.
 
 
-## Step 6 - Move Files To Their Respective Locations
+## Step 5 - Move Files To Their Respective Locations
 
 Place `kbd-backlight-idle.sh` in the default location
 
