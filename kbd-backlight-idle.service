@@ -1,20 +1,20 @@
 [Unit]
-Description=Keyboard Backlight Idle Timeout
-# This binds the service to the 'active' state of the system
+Description=Keyboard Backlight Idle Timeout (Python/evdev)
+# Ensure input-remapper is ready before we try to grab the device
 After=input-remapper.service
+# Stop the service if the target is no longer active
 StopWhenUnneeded=yes
 
 [Service]
 Type=simple
-# Give the kernel and input-remapper time to breathe on resume
-ExecStartPre=/usr/bin/sleep 8
-ExecStart=/usr/local/bin/kbd-backlight-idle.sh
+# Standard practice to wait for hardware initialization
+ExecStartPre=/usr/bin/sleep 5
+# Call the python interpreter directly
+ExecStart=/usr/bin/python3 /usr/local/bin/kbd-backlight-idle.py
 Restart=always
-RestartSec=10
-# This prevents the "Job failed because a timeout was exceeded" error
-TimeoutStartSec=60
+RestartSec=5
+# Ensure it runs as root to access /dev/input and /sys/class/leds
 User=root
 
 [Install]
-# Pulling it into these targets ensures it triggers on EVERY wake-up
 WantedBy=multi-user.target suspend.target hibernate.target
