@@ -27,13 +27,13 @@ I'm studying computer science but I'm pretty early in the education process so a
 
 ---
 
-## Step 1 Download repository
+## Step 1 - Download repository
 
 ```
 git clone https://github.com/tangosox/systemd-keyboard-backlight-idle-control kbd-backlight
 ```
 
-## Step 2 — Find Your Keyboard
+## Step 2 - Find Your Keyboard
 
 Run:
 
@@ -53,7 +53,7 @@ KEYBOARD="$(libinput list-devices | awk '
 ')"
 ```
 
-## Step 3 — Find Your Backlight Path and Test
+## Step 3 - Find Your Backlight Path and Test
 
 Check available LED devices:
 
