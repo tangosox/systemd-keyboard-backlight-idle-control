@@ -13,7 +13,7 @@ It monitors keyboard input using `libinput debug-events`.
 ## Disclaimer
 Use at your own risk. I used AI to help code this and although I've been using it on my own system, it hasn't always been stable and I don't understand all of it.
 
-That said, I just switched it from bash to python and have been iterating on it to understand it better. Now I can check evdev directly instead of libinput --debug-events. I only check libinput for device name. This should be much less bug prone with more direct device access.
+That said, I just switched it from bash to python and have been iterating on it to understand it better. Now I can check evdev directly instead of libinput --debug-events. This should be much less bug prone with more direct device access.
 
 ---
 
@@ -88,9 +88,6 @@ BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 ## Step 4 - Update Service file
 
 You probably do not need `After=input-remapper.service` unless you are also running input-remapper.
-Make sure you look over this file, I can't be sure what you need here.  I made it more robust because 
-it was failing to start after hibernate/sleep resume.
-
 
 ## Step 5 - Move Files To Their Respective Locations
 
