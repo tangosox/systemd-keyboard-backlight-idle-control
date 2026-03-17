@@ -1,11 +1,20 @@
 [Unit]
 Description=Keyboard Backlight Idle Timeout
-After=multi-user.target
+# This binds the service to the 'active' state of the system
+After=input-remapper.service
+StopWhenUnneeded=yes
 
 [Service]
+Type=simple
+# Give the kernel and input-remapper time to breathe on resume
+ExecStartPre=/usr/bin/sleep 8
 ExecStart=/usr/local/bin/kbd-backlight-idle.sh
 Restart=always
+RestartSec=10
+# This prevents the "Job failed because a timeout was exceeded" error
+TimeoutStartSec=60
 User=root
 
 [Install]
-WantedBy=multi-user.target
+# Pulling it into these targets ensures it triggers on EVERY wake-up
+WantedBy=multi-user.target suspend.target hibernate.target
