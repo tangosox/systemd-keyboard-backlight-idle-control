@@ -1,10 +1,17 @@
 #!/bin/bash
 set -euo pipefail
 
+# ==========================================
+# CONFIGURATION (Edit these values)
+# ==========================================
+IDLE_TIMEOUT=5        # Seconds of inactivity before turning off
+BRIGHTNESS_LEVEL=1    # 1 for ON, 0 for OFF (some laptops support higher)
+LOG_TAG="kbd-idle"    # Tag for journalctl/logger
+# ==========================================
+
 BRIGHTNESS="/sys/class/leds/platform::kbd_backlight/brightness"
 LIBINPUT="/usr/bin/libinput"
 LOGGER="/usr/bin/logger"
-LOG_TAG="kbd-backlight-idle"
 
 log() { $LOGGER -t "$LOG_TAG" "$*"; }
 
@@ -24,20 +31,14 @@ while true; do
         continue
     fi
 
-    # Use /tmp for broader compatibility, unique name per PID
     FIFO="/tmp/kbd-backlight.$$.fifo"
     mkfifo -m 600 "$FIFO"
-    
-    # Open for reading AND writing (3<>) to prevent EOF "spin"
     exec 3<>"$FIFO"
 
     STATE="on"
-    TIMEOUT=5
-    ON_LEVEL=1
+    echo "$BRIGHTNESS_LEVEL" > "$BRIGHTNESS" || log "Warning: Initial write failed"
 
-    echo "$ON_LEVEL" > "$BRIGHTNESS" || log "Warning: Initial brightness write failed"
-
-    # Background the libinput listener
+    # Start listener
     (
         $LIBINPUT debug-events --device "$KEYBOARD" 2>/dev/null | while read -r line; do
             if [[ "$line" == *"KEYBOARD_KEY"* && "$line" == *"pressed"* ]]; then
@@ -49,23 +50,22 @@ while true; do
 
     log "Daemon active on $KEYBOARD (PID: $WATCHER_PID)"
 
-    # --- THE FIXED LOOP ---
+    # --- THE CLEAN LOOP ---
     while kill -0 "$WATCHER_PID" 2>/dev/null; do
-        # Use a real timeout (-t 5) to block (0% CPU) until data or 5 seconds pass
-        if read -r -t "$TIMEOUT" -u 3 line; then
+        # This "read" blocks the CPU until activity happens OR timeout is reached
+        if read -r -t "$IDLE_TIMEOUT" -u 3 _; then
+            # Activity detected
             if [[ "$STATE" == "off" ]]; then
-                echo "$ON_LEVEL" > "$BRIGHTNESS" || true
+                echo "$BRIGHTNESS_LEVEL" > "$BRIGHTNESS" || true
                 STATE="on"
-                log "Backlight ON"
+                log "Activity: Backlight ON"
             fi
-            # We don't need the 'read -t 0' loop anymore. 
-            # The next 'read -t 5' will handle the next event.
         else
-            # If we reach here, it means 5 seconds passed with no input
+            # Timeout reached (No activity for $IDLE_TIMEOUT seconds)
             if [[ "$STATE" != "off" ]]; then
                 echo 0 > "$BRIGHTNESS" || true
                 STATE="off"
-                log "Backlight OFF"
+                log "Idle: Backlight OFF"
             fi
         fi
     done
