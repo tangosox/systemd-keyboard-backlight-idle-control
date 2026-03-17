@@ -81,7 +81,7 @@ echo 0 | sudo tee /sys/class/leds/platform::kbd_backlight/brightness
 
 Note: sudo echo 1 > file will NOT work because shell redirection happens before sudo.
 
-## Step 4 Update script
+## Step 4 - Update script
 
 Update this line in the script with tested path from previous step:
 
