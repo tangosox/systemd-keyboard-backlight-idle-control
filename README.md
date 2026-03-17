@@ -11,11 +11,9 @@ This script turns off the keyboard backlight after a configurable idle period.
 It monitors keyboard input using `libinput debug-events`.
 
 ## Disclaimer
-Use at your own risk. I used AI to help code this and although I've been using it on my own system, it hasn't always been stable and I don't understand all of it. Used chatgpt first then Gemini. Gemini helped me fix a 100% cpu usage bug on resume from hibernate by changing from a standard pipe to a named pipe. 
+Use at your own risk. I used AI to help code this and although I've been using it on my own system, it hasn't always been stable and I don't understand all of it.
 
-Explanation from Gemini: "The 100% CPU bug happened because a standard pipe (|) crashes when the hardware vanishes during hibernation, leaving the script "spinning" in a broken loop. By switching to a Named Pipe (FIFO), we decoupled the script from the hardware; the script now waits safely at a persistent "file" in /tmp until the keyboard is re-detected, preventing the infinite loop."
-
-I'm studying computer science but I'm pretty early in the education process so apologies for being a bit of a vibe coder. Still, I hope you find it useful, as it is now working perfectly for me and solved an issue with no dynamic keyboard backlight available in linux for my hardware.
+That said, I just switched it from bash to python and have been iterating on it to understand it better. Now I can check evdev directly instead of libinput --debug-events. I only check libinput for device name. This should be much less bug prone with more direct device access.
 
 ---
 
