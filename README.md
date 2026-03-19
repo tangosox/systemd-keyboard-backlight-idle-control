@@ -18,7 +18,7 @@ That said, I just switched it from bash to python and have been iterating on it 
 
 ## Requirements
 
-- `libinput`
+- `python` `evdev` library.
 - A writable keyboard backlight brightness file under `/sys/class/leds`
 - A system-level systemd service
 
