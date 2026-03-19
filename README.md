@@ -8,10 +8,9 @@ On my GNOME system, the keyboard backlight was not turning off automatically,
 even though the hardware supported it (and it worked in Windows).
 
 This script turns off the keyboard backlight after a configurable idle period.
-It monitors keyboard input using `libinput debug-events`.
 
 ## Disclaimer
-Use at your own risk. I used AI to help code this and although I've been using it on my own system, it hasn't always been stable and I don't understand all of it.
+Use at your own risk. I used AI to help code this and although I've been using it on my own system, it hasn't always been stable. Latest build looks to be running well and no edge cases I've detected so far.
 
 That said, I just switched it from bash to python and have been iterating on it to understand it better. Now I can check evdev directly instead of libinput --debug-events. This should be much less bug prone with more direct device access.
 
