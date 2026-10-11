@@ -5,7 +5,8 @@ import selectors
 import os
 
 # --- Configuration ---
-DEVICE_NAME = "input-remapper AT Translated Set 2 keyboard forwarded"
+DEVICE_NAME = "AT Translated Set 2 keyboard"
+DEVICE_PHYS = "input-remapper/isa0060/serio0/input0"
 BACKLIGHT_PATH = "/sys/class/leds/platform::kbd_backlight/brightness"
 IDLE_TIMEOUT = 5  # seconds
 
@@ -24,7 +25,7 @@ def find_device():
         try:
             for path in evdev.list_devices():
                 dev = evdev.InputDevice(path)
-                if dev.name == DEVICE_NAME:
+                if dev.name == DEVICE_NAME and dev.phys == DEVICE_PHYS:
                     print(f"Connected to {dev.name}")
                     return dev
                 dev.close()
@@ -77,5 +78,4 @@ def run_daemon():
 
 if __name__ == "__main__":
     # Ensure we start with the light on
-    set_backlight(1)
     run_daemon()
